@@ -12,30 +12,30 @@ test('Discounted Mocha added to the Cart after promo accepting', async ({
   const americanoPrice = priceFormatStr(COFFEE_PRICES.americano);
 
   await menuPage.open();
-  await menuPage.clickCoffeeCup(COFFEE_NAMES.cappuccino);
-  await menuPage.clickCoffeeCup(COFFEE_NAMES.espresso);
-  await menuPage.clickCoffeeCup(COFFEE_NAMES.americano);
+  await menuPage.cup.clickCoffeeCup(COFFEE_NAMES.cappuccino);
+  await menuPage.cup.clickCoffeeCup(COFFEE_NAMES.espresso);
+  await menuPage.cup.clickCoffeeCup(COFFEE_NAMES.americano);
 
-  await menuPage.assertPromoMessageIsVisible();
+  await menuPage.promo.assertPromoMessageIsVisible();
 
-  await menuPage.clickYesPromoButton();
+  await menuPage.promo.clickYesPromoButton();
 
-  await menuPage.clickCartLink();
+  await menuPage.header.clickCartLink();
   await cartPage.waitForLoading();
 
-  await cartPage.assertCoffeeTotalCostContainsCorrectText(
+  await cartPage.cartList.assertCoffeeTotalCostContainsCorrectText(
     COFFEE_NAMES.espresso,
     espressoPrice,
   );
-  await cartPage.assertCoffeeTotalCostContainsCorrectText(
+  await cartPage.cartList.assertCoffeeTotalCostContainsCorrectText(
     '(Discounted) Mocha',
     discMochaPrice,
   );
-  await cartPage.assertCoffeeTotalCostContainsCorrectText(
+  await cartPage.cartList.assertCoffeeTotalCostContainsCorrectText(
     COFFEE_NAMES.cappuccino,
     cappuccinoPrice,
   );
-  await cartPage.assertCoffeeTotalCostContainsCorrectText(
+  await cartPage.cartList.assertCoffeeTotalCostContainsCorrectText(
     COFFEE_NAMES.americano,
     americanoPrice,
   );
